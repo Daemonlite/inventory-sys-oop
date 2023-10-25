@@ -1,1 +1,38 @@
-[{"name": "Yogort", "price": 3.5, "quantity": 412, "expiry_month": "11", "expiry_year": "2025", "supplier_name": "excon.co", "supplier_contact": "2335778955654"}, {"name": "Fanice", "price": 5.0, "quantity": 92, "expiry_month": "2", "expiry_year": "2028", "supplier_name": "ex.co", "supplier_contact": "233578877"}, {"name": "Bel cola", "price": 12.0, "quantity": 41, "expiry_month": "12", "expiry_year": "2024", "supplier_name": "nexticom", "supplier_contact": "233456789"}, {"name": "Bel ice", "price": 12.0, "quantity": 14, "expiry_month": "11", "expiry_year": "2023", "supplier_name": "ejisom", "supplier_contact": "23355874"}]
+[
+  {
+    "name": "Yogort",
+    "price": 3.5,
+    "quantity": 412,
+    "expiry_month": "11",
+    "expiry_year": "2025",
+    "supplier_name": "excon.co",
+    "supplier_contact": "2335778955654"
+  },
+  {
+    "name": "Fanice",
+    "price": 5.0,
+    "quantity": 92,
+    "expiry_month": "2",
+    "expiry_year": "2028",
+    "supplier_name": "ex.co",
+    "supplier_contact": "233578877"
+  },
+  {
+    "name": "Bel cola",
+    "price": 12.0,
+    "quantity": 41,
+    "expiry_month": "12",
+    "expiry_year": "2024",
+    "supplier_name": "nexticom",
+    "supplier_contact": "233456789"
+  },
+  {
+    "name": "Bel ice",
+    "price": 12.0,
+    "quantity": 14,
+    "expiry_month": "11",
+    "expiry_year": "2023",
+    "supplier_name": "ejisom",
+    "supplier_contact": "23355874"
+  }
+]
