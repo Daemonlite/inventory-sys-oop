@@ -15,6 +15,7 @@ def main():
         print("5. Search for Product")
         print("6. Update Product")
         print("7. Register Purchase")
+        print("8. Delete Product")
         print("0. Exit")
 
         choice = input("Enter your choice: ")
@@ -38,10 +39,10 @@ def main():
             )
             print("Product added to inventory.")
 
-        elif choice == "2":
+        if choice == "2":
             inventory.list_products()
 
-        elif choice == "3":
+        if choice == "3":
             inventory.list_products()
             product_index = (
                 int(input("Enter the product number to check expiration: ")) - 1
@@ -54,7 +55,7 @@ def main():
             exp = arrow.get(expiry_date).format("YYYY-MM-DD")
             print(f"Expiry Date: {exp}")
 
-        elif choice == "4":
+        if choice == "4":
             inventory.list_products()
             product_index = (
                 int(input("Enter the product number to check supplier information: "))
@@ -65,7 +66,7 @@ def main():
                 f"Supplier: {product['supplier_name']}, Contact: {product['supplier_contact']}"
             )
 
-        elif choice == "5":
+        if choice == "5":
             product_name = input("Enter product name: ")
             if product_name.islower():
                 name = product_name.capitalize()
@@ -81,7 +82,7 @@ def main():
                 else:
                     print("Product could not be found in the inventory.")
 
-        elif choice == "6":
+        if choice == "6":
             name = input("Enter Product name to update: ")
             man = name.capitalize()
             products = inventory.find_product(man)
@@ -107,31 +108,31 @@ def main():
                         inventory.update_product(
                             product_name=name, new_value=new_value, field="name"
                         )
-                    elif field_choice == 2:
+                    if field_choice == 2:
                         inventory.update_product(
                             product_name=name,
                             new_value=int(new_value),
                             field="quantity",
                         )
-                    elif field_choice == 3:
+                    if field_choice == 3:
                         inventory.update_product(
                             product_name=name,
                             new_value=int(new_value),
                             field="expiry_month",
                         )
-                    elif field_choice == 4:
+                    if field_choice == 4:
                         inventory.update_product(
                             product_name=name,
                             new_value=int(new_value),
                             field="expiry_year",
                         )
-                    elif field_choice == 5:
+                    if field_choice == 5:
                         inventory.update_product(
                             product_name=name,
                             new_value=new_value,
                             field="supplier_name",
                         )
-                    elif field_choice == 6:
+                    if field_choice == 6:
                         inventory.update_product(
                             product_name=name,
                             new_value=new_value,
@@ -142,14 +143,20 @@ def main():
             else:
                 print("Product could not be found in the inventory.")
 
-        elif choice == "7":
+        if choice == "7":
             print("enter product name to register purchase")
             name = input("Enter product name: ")
             quantity = int(input("Enter quantity: "))
             inventory.register_purchase(name, quantity)
             print("Purchase registered successfully.")
+        
+        if choice == "8":
+            print("enter product name to delete")
+            name = input("Enter product name: ")
+            inventory.delete_product(name)
+            print("Product deleted successfully.")
 
-        elif choice == "0":
+        if choice == "0":
             print("Exiting program.")
             break
 
