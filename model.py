@@ -73,6 +73,8 @@ class Inventory:
                     product["supplier_name"] = new_value
                 elif field == "supplier_contact":
                     product["supplier_contact"] = new_value
+                elif field == "price":
+                    product["price"] = new_value
                 self.save_to_json()
                 return product
 
@@ -104,21 +106,20 @@ class Inventory:
                     with open("history.json", "w") as f:
                         json.dump(purchase_history, f)
 
+                    print(f"Purchase of {quantity} {product_name} was successful.")
                     return product
-                else:
-                    return f"Insufficient quantity of {product_name} available."
 
-        return "Product could not be found in inventory."
+                print(f"Insufficient quantity of {product_name}")
+        print(f"Product {product_name} was not found in inventory")
 
     def delete_product(self, product_name):
         for product in self.products:
             if product["name"] == product_name:
                 self.products.remove(product)
                 self.save_to_json()
-                return
-
+                print("Product deleted successfully.")
+                return product
         print(f"Product with the name {product_name} was not found in the inventory.")
-
 
 
 class ExpirationChecker:

@@ -95,6 +95,7 @@ def main():
                 print("4. Expiry Year")
                 print("5. Supplier Name")
                 print("6. Supplier Contact")
+                print("7. Price")
 
                 field_choice = input(
                     "Enter the number of the field you want to update (or press Enter to finish): "
@@ -138,23 +139,33 @@ def main():
                             new_value=new_value,
                             field="supplier_contact",
                         )
+                    if field_choice == 7:
+                        inventory.update_product(
+                            product_name=name,
+                            new_value=float(new_value),
+                            field="price",
+                        )
 
                     print("Product updated successfully.")
             else:
                 print("Product could not be found in the inventory.")
 
         if choice == "7":
-            print("enter product name to register purchase")
+            print("Enter product name to register purchase")
             name = input("Enter product name: ")
-            quantity = int(input("Enter quantity: "))
-            inventory.register_purchase(name, quantity)
-            print("Purchase registered successfully.")
-        
+            quantity = int(input("Enter quantity: "))  # Get the quantity first
+            pos = inventory.find_product(name)
+            if pos:
+                inventory.register_purchase(
+                    name, quantity
+                )  # Register the purchase first
+
         if choice == "8":
             print("enter product name to delete")
             name = input("Enter product name: ")
-            inventory.delete_product(name)
-            print("Product deleted successfully.")
+            prod = inventory.find_product(name)
+            if prod:
+                inventory.delete_product(name)
 
         if choice == "0":
             print("Exiting program.")

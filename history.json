@@ -3,5 +3,9 @@
   { "product_name": "Bel ice", "quantity": 10, "date": "2023-10-25 15:49" },
   { "product_name": "Remy martin", "quantity": 2, "date": "2023-10-25 16:13" },
   { "product_name": "Yogort", "quantity": 3, "date": "2023-10-25 16:15" },
-  { "product_name": "Fanice", "quantity": 4, "date": "2023-10-25 16:15" }
+  { "product_name": "Fanice", "quantity": 4, "date": "2023-10-25 16:15" },
+  { "product_name": "Remy martin", "quantity": 4, "date": "2023-10-25 16:45" },
+  { "product_name": "Yogort", "quantity": 5, "date": "2023-10-25 16:46" },
+  { "product_name": "Bel ice", "quantity": 4, "date": "2023-10-25 16:47" },
+  { "product_name": "Bel cola", "quantity": 2, "date": "2023-10-25 16:48" }
 ]
