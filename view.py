@@ -1,5 +1,6 @@
-from model import Inventory,ExpirationChecker
+from model import Inventory, ExpirationChecker
 import arrow
+
 
 def main():
     inventory = Inventory()
@@ -63,7 +64,7 @@ def main():
             print(
                 f"Supplier: {product['supplier_name']}, Contact: {product['supplier_contact']}"
             )
-        
+
         elif choice == "5":
             product_name = input("Enter product name: ")
             if product_name.islower():
@@ -80,12 +81,11 @@ def main():
                 else:
                     print("Product could not be found in the inventory.")
 
-        
         elif choice == "6":
             name = input("Enter Product name to update: ")
             man = name.capitalize()
             products = inventory.find_product(man)
-        
+
             if products is not None:
                 print("Fields you can update:")
                 print("1. Name")
@@ -94,31 +94,53 @@ def main():
                 print("4. Expiry Year")
                 print("5. Supplier Name")
                 print("6. Supplier Contact")
-        
-                field_choice = input("Enter the number of the field you want to update (or press Enter to finish): ")
-        
+
+                field_choice = input(
+                    "Enter the number of the field you want to update (or press Enter to finish): "
+                )
+
                 if field_choice:
                     field_choice = int(field_choice)
                     new_value = input("Enter the new value: ")
-        
+
                     if field_choice == 1:
-                        inventory.update_product(product_name=name, new_value=new_value, field="name")
+                        inventory.update_product(
+                            product_name=name, new_value=new_value, field="name"
+                        )
                     elif field_choice == 2:
-                        inventory.update_product(product_name=name, new_value=int(new_value), field="quantity")
+                        inventory.update_product(
+                            product_name=name,
+                            new_value=int(new_value),
+                            field="quantity",
+                        )
                     elif field_choice == 3:
-                        inventory.update_product(product_name=name, new_value=int(new_value), field="expiry_month")
+                        inventory.update_product(
+                            product_name=name,
+                            new_value=int(new_value),
+                            field="expiry_month",
+                        )
                     elif field_choice == 4:
-                        inventory.update_product(product_name=name, new_value=int(new_value), field="expiry_year")
+                        inventory.update_product(
+                            product_name=name,
+                            new_value=int(new_value),
+                            field="expiry_year",
+                        )
                     elif field_choice == 5:
-                        inventory.update_product(product_name=name, new_value=new_value, field="supplier_name")
+                        inventory.update_product(
+                            product_name=name,
+                            new_value=new_value,
+                            field="supplier_name",
+                        )
                     elif field_choice == 6:
-                        inventory.update_product(product_name=name, new_value=new_value, field="supplier_contact")
-        
+                        inventory.update_product(
+                            product_name=name,
+                            new_value=new_value,
+                            field="supplier_contact",
+                        )
+
                     print("Product updated successfully.")
             else:
                 print("Product could not be found in the inventory.")
-               
-
 
         elif choice == "7":
             print("enter product name to register purchase")
@@ -126,7 +148,6 @@ def main():
             quantity = int(input("Enter quantity: "))
             inventory.register_purchase(name, quantity)
             print("Purchase registered successfully.")
-
 
         elif choice == "0":
             print("Exiting program.")

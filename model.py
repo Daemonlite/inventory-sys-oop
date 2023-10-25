@@ -40,8 +40,6 @@ class Inventory:
         with open("inventory.json", "w") as f:
             json.dump(self.products, f)
 
-
-
     def load_from_json(self):
         try:
             with open("inventory.json", "r") as f:
@@ -49,9 +47,9 @@ class Inventory:
                 if data:
                     self.products = json.loads(data)
                 else:
-                    self.products = []  
+                    self.products = []
         except FileNotFoundError:
-            self.products = [] 
+            self.products = []
 
     def find_product(self, product_name):
         for product in self.products:
@@ -59,7 +57,7 @@ class Inventory:
                 return product
             else:
                 return "Product could not be found in inventory"
-    
+
     def update_product(self, product_name, field, new_value):
         for product in self.products:
             if product["name"] == product_name:
@@ -79,10 +77,6 @@ class Inventory:
                 return product
 
         return None
-    
-
-
-
 
     def register_purchase(self, product_name, quantity):
         for product in self.products:
@@ -91,7 +85,7 @@ class Inventory:
                 if current_quantity >= quantity:
                     product["quantity"] -= quantity
                     self.save_to_json()
-                    
+
                     # Record purchase history
                     purchase_history = []
                     try:
@@ -99,27 +93,22 @@ class Inventory:
                             purchase_history = json.load(f)
                     except FileNotFoundError:
                         pass
-                    
-                    purchase_record = {"product_name": product_name, "quantity": quantity, "date": datetime.datetime.now().strftime("%Y-%m-%d %H:%M")}
+
+                    purchase_record = {
+                        "product_name": product_name,
+                        "quantity": quantity,
+                        "date": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
+                    }
                     purchase_history.append(purchase_record)
-                    
+
                     with open("history.json", "w") as f:
                         json.dump(purchase_history, f)
-                    
+
                     return product
                 else:
                     return f"Insufficient quantity of {product_name} available."
-        
+
         return "Product could not be found in inventory."
-   
-
-       
-
-
-
-
-
-   
 
 
 class ExpirationChecker:
@@ -149,6 +138,3 @@ class ExpirationChecker:
         if expiry_date.date() > six_months_from_now:
             print(f"Product '{product['name']}' is not yet near expiration.")
             return expiry_date
-
-
-
