@@ -1,7 +1,9 @@
 import datetime
 from dateutil.relativedelta import relativedelta
 import json
+import logging
 
+logger = logging.getLogger(__name__)
 
 class Inventory:
     def __init__(self):
@@ -30,9 +32,9 @@ class Inventory:
         self.save_to_json()
 
     def list_products(self):
-        print("Inventory:")
+        logger.warning("Inventory:")
         for idx, product in enumerate(self.products, start=1):
-            print(
+            logger.warning(
                 f"{idx}. Product: {product['name']}, Price: {product['price']}, Quantity: {product['quantity']}, Expiry: {product['expiry_month'], product['expiry_year']}, Supplier: {product['supplier_name']}, Contact: {product['supplier_contact']}"
             )
 
@@ -76,9 +78,11 @@ class Inventory:
                 elif field == "price":
                     product["price"] = new_value
                 self.save_to_json()
+
+                logger.warning("Product updated successfully.")
                 return product
 
-        return None
+        logger.warning(f"Product {product_name} was not found in inventory")
 
     def register_purchase(self, product_name, quantity):
         for product in self.products:
@@ -106,20 +110,20 @@ class Inventory:
                     with open("history.json", "w") as f:
                         json.dump(purchase_history, f)
 
-                    print(f"Purchase of {quantity} {product_name} was successful.")
+                    logger.warning(f"Purchase of {quantity} {product_name} was successful.")
                     return product
 
-                print(f"Insufficient quantity of {product_name}")
-        print(f"Product {product_name} was not found in inventory")
+                logger.warning(f"Insufficient quantity of {product_name}")
+        logger.warning(f"Product {product_name} was not found in inventory")
 
     def delete_product(self, product_name):
         for product in self.products:
             if product["name"] == product_name:
                 self.products.remove(product)
                 self.save_to_json()
-                print("Product deleted successfully.")
+                logger.warning("Product deleted successfully.")
                 return product
-        print(f"Product with the name {product_name} was not found in the inventory.")
+        logger.warning(f"Product with the name {product_name} was not found in the inventory.")
 
 
 class ExpirationChecker:
@@ -135,17 +139,17 @@ class ExpirationChecker:
         if current_date <= expiry_date.date() <= six_months_from_now:
             time_until_expiration = (expiry_date.date() - current_date).days
             if time_until_expiration == 0:
-                print(f"Product '{product['name']}' has expired today!")
+                logger.warning(f"Product '{product['name']}' has expired today!")
             else:
-                print(
+                logger.warning(
                     f"Product '{product['name']}' will expire in {time_until_expiration} days."
                 )
             return expiry_date
 
         if current_date > expiry_date.date():
-            print(f"Product '{product['name']}' has already expired.")
+            logger.warning(f"Product '{product['name']}' has already expired.")
             return expiry_date
 
         if expiry_date.date() > six_months_from_now:
-            print(f"Product '{product['name']}' is not yet near expiration.")
+            logger.warning(f"Product '{product['name']}' is not yet near expiration.")
             return expiry_date

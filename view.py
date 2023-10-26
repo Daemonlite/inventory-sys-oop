@@ -1,22 +1,24 @@
 from model import Inventory, ExpirationChecker
 import arrow
+import logging
 
+logger = logging.getLogger(__name__)
 
 def main():
     inventory = Inventory()
     inventory.load_from_json()
 
     while True:
-        print("\nOptions:")
-        print("1. Add Product to Inventory")
-        print("2. List Products in Inventory")
-        print("3. Check Expiration")
-        print("4. Check Supplier Information")
-        print("5. Search for Product")
-        print("6. Update Product")
-        print("7. Register Purchase")
-        print("8. Delete Product")
-        print("0. Exit")
+        logger.warning("\nOptions:")
+        logger.warning("1. Add Product to Inventory")
+        logger.warning("2. List Products in Inventory")
+        logger.warning("3. Check Expiration")
+        logger.warning("4. Check Supplier Information")
+        logger.warning("5. Search for Product")
+        logger.warning("6. Update Product")
+        logger.warning("7. Register Purchase")
+        logger.warning("8. Delete Product")
+        logger.warning("0. Exit")
 
         choice = input("Enter your choice: ")
 
@@ -37,7 +39,7 @@ def main():
                 product_supplier_name,
                 product_supplier_contact,
             )
-            print("Product added to inventory.")
+            logger.warning("Product added to inventory.")
 
         if choice == "2":
             inventory.list_products()
@@ -53,7 +55,7 @@ def main():
             checker = ExpirationChecker(expiry_month, expiry_year)
             expiry_date = checker.check_expiration(product)
             exp = arrow.get(expiry_date).format("YYYY-MM-DD")
-            print(f"Expiry Date: {exp}")
+            logger.warning(f"Expiry Date: {exp}")
 
         if choice == "4":
             inventory.list_products()
@@ -62,7 +64,7 @@ def main():
                 - 1
             )
             product = inventory.products[product_index]
-            print(
+            logger.warning(
                 f"Supplier: {product['supplier_name']}, Contact: {product['supplier_contact']}"
             )
 
@@ -72,15 +74,15 @@ def main():
                 name = product_name.capitalize()
                 inv = inventory.find_product(name)
                 if inv:
-                    print(inv)
+                    logger.warning(inv)
                 else:
-                    print("Product could not be found in the inventory.")
+                    logger.warning("Product could not be found in the inventory.")
             else:
                 prod = inventory.find_product(product_name)
                 if prod:
-                    print(prod)
+                    logger.warning(prod)
                 else:
-                    print("Product could not be found in the inventory.")
+                    logger.warning("Product could not be found in the inventory.")
 
         if choice == "6":
             name = input("Enter Product name to update: ")
@@ -88,14 +90,14 @@ def main():
             products = inventory.find_product(man)
 
             if products is not None:
-                print("Fields you can update:")
-                print("1. Name")
-                print("2. Quantity")
-                print("3. Expiry Month")
-                print("4. Expiry Year")
-                print("5. Supplier Name")
-                print("6. Supplier Contact")
-                print("7. Price")
+                logger.warning("Fields you can update:")
+                logger.warning("1. Name")
+                logger.warning("2. Quantity")
+                logger.warning("3. Expiry Month")
+                logger.warning("4. Expiry Year")
+                logger.warning("5. Supplier Name")
+                logger.warning("6. Supplier Contact")
+                logger.warning("7. Price")
 
                 field_choice = input(
                     "Enter the number of the field you want to update (or press Enter to finish): "
@@ -146,12 +148,11 @@ def main():
                             field="price",
                         )
 
-                    print("Product updated successfully.")
             else:
-                print("Product could not be found in the inventory.")
+                logger.warning("Product could not be found in the inventory.")
 
         if choice == "7":
-            print("Enter product name to register purchase")
+            logger.warning("Enter product name to register purchase")
             name = input("Enter product name: ")
             quantity = int(input("Enter quantity: "))  # Get the quantity first
             pos = inventory.find_product(name)
@@ -161,14 +162,14 @@ def main():
                 )  # Register the purchase first
 
         if choice == "8":
-            print("enter product name to delete")
+            logger.warning("enter product name to delete")
             name = input("Enter product name: ")
             prod = inventory.find_product(name)
             if prod:
                 inventory.delete_product(name)
 
         if choice == "0":
-            print("Exiting program.")
+            logger.warning("Exiting program.")
             break
 
 
